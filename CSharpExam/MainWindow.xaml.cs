@@ -81,37 +81,6 @@ namespace CSharpExam
             TBTDEE.Text = ratio.ToString();
         }
 
-        private void TBAge_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            var textBox = sender as TextBox;
-
-            if (Regex.IsMatch(e.Text, @"[0-9]") == false)
-                e.Handled = true;
-
-        }
-
-        private void TBKg_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            int max = 5;
-
-
-            if (Regex.IsMatch(e.Text, @"[0-9,]") == false)
-                e.Handled = true;
-
-            if (textBox.Text.Length == 0 && e.Text == ",")
-                e.Handled = true;
-
-            if (e.Text == "," && textBox.Text.Contains(','))
-                e.Handled = true;
-
-            if (e.Text == "," && isMax == true)
-            {
-                textBox.MaxLength += 3;
-                isMax = false;
-            }
-        }
-
         private double GetRatio()
         {
             switch (CBRatio.SelectedIndex)
@@ -131,6 +100,28 @@ namespace CSharpExam
                 default:
                     return 1;
             }
+        }
+
+        private void PreviewTextInputDig(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowedDig(e.Text);
+        }
+
+        private static readonly Regex _regexDig = new Regex("[^0-9.-]+");
+        private static bool IsTextAllowedDig(string text)
+        {
+            return !_regexDig.IsMatch(text);
+        }
+
+        private void PreviewTextInputLet(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowedLet(e.Text);
+        }
+
+        private static readonly Regex _regexLet = new Regex("[^а-я]+");
+        private static bool IsTextAllowedLet(string text)
+        {
+            return !_regexLet.IsMatch(text);
         }
     }
 }

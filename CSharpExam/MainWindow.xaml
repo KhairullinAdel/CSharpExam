@@ -47,6 +47,7 @@
             Grid.Column="2"
             Grid.ColumnSpan="3"
             Height="20"
+            PreviewTextInput="PreviewTextInputLet"
             />
 
         <StackPanel
@@ -70,7 +71,8 @@
                     Style="{StaticResource textblockStyle}"/>
                 <TextBox
                     x:Name="Year"
-                    Style="{StaticResource textboxStyle}" />
+                    Style="{StaticResource textboxStyle}" 
+                    PreviewTextInput="PreviewTextInputDig"/>
             </StackPanel>
             <StackPanel
                 Margin="10,0">
@@ -79,7 +81,8 @@
                     Style="{StaticResource textblockStyle}"/>
                 <TextBox
                     x:Name="Height"
-                    Style="{StaticResource textboxStyle}" />
+                    Style="{StaticResource textboxStyle}" 
+                    PreviewTextInput="PreviewTextInputDig"/>
             </StackPanel>
             <StackPanel
                 Margin="10,0">
@@ -88,7 +91,8 @@
                     Style="{StaticResource textblockStyle}"/>
                 <TextBox
                     x:Name="Weigh"
-                    Style="{StaticResource textboxStyle}" />
+                    Style="{StaticResource textboxStyle}" 
+                    PreviewTextInput="PreviewTextInputDig"/>
             </StackPanel>
             
         </StackPanel>
