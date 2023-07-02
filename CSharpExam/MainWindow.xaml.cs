@@ -89,7 +89,7 @@ namespace CSharpExam
             }
             catch
             {
-                MessageBox.Show("Ошибка введенных данных");
+                MessageBox.Show($"Ошибка введенных данных \n + {error}");
                 Clear();
             }
             
@@ -136,6 +136,12 @@ namespace CSharpExam
         private static bool IsTextAllowedLet(string text)
         {
             return !_regexLet.IsMatch(text);
+        }
+
+        private void PreviewTextInputYear(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, @"[0-9,]") == false)
+                e.Handled = true;
         }
     }
 }
