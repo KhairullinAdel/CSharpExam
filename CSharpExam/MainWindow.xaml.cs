@@ -34,51 +34,65 @@ namespace CSharpExam
             Weigh.MaxLength = 3;
         }
 
+        private void Clear()
+        {
+            Year.Text = Height.Text = Weigh.Text = TBTDEE.Text = TBBMR.Text = string.Empty;
+            Weigh.MaxLength = 3;
+        }
+
         private void BCalculate_Click(object sender, RoutedEventArgs e)
         {
             double result, ratio;
             TBBMR.Text = TBTDEE.Text = string.Empty;
 
             string error = "";
-
-            if (string.IsNullOrWhiteSpace(Year.Text) == true || Year.Text.EndsWith(",") == true
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Year.Text) == true || Year.Text.EndsWith(",") == true
                 || !(Convert.ToDouble(DateTime.Now.Year - int.Parse(Year.Text)) <= 80 && Convert.ToDouble(DateTime.Now.Year - int.Parse(Year.Text)) >= 15))
-            {
-                error += "-Введите корректный возраст\n(15 - 80 лет)\n";
-                Year.Text = string.Empty;
-                year = DateTime.Now.Year - int.Parse(Year.Text);
-            }
-            if (string.IsNullOrWhiteSpace(Weigh.Text) == true || Weigh.Text.EndsWith(",") == true
-                || !(Convert.ToDouble(Weigh.Text) >= 40 && Convert.ToDouble(Weigh.Text) <= 500))
-            {
-                error += "-Введите корректный вес\n(40 - 500 кг)\n";
-                Weigh.Text = string.Empty;
-            }
-            if (string.IsNullOrWhiteSpace(Height.Text) == true || Height.Text.EndsWith(",") == true
-                || !(Convert.ToDouble(Height.Text) <= 220 && Convert.ToDouble(Height.Text) >= 120))
-            {
-                error += "-Введите корректный рост\n(120 - 220 см)\n";
-                Height.Text = string.Empty;
-            }
-            if (string.IsNullOrWhiteSpace(error) == false)
-            {
-                MessageBox.Show(error, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                {
+                    error += "-Введите корректный возраст\n(15 - 80 лет)\n";
+                    Year.Text = string.Empty;
+                    year = DateTime.Now.Year - int.Parse(Year.Text);
+                }
+                if (string.IsNullOrWhiteSpace(Weigh.Text) == true || Weigh.Text.EndsWith(",") == true
+                    || !(Convert.ToDouble(Weigh.Text) >= 40 && Convert.ToDouble(Weigh.Text) <= 500))
+                {
+                    error += "-Введите корректный вес\n(40 - 500 кг)\n";
+                    Weigh.Text = string.Empty;
+                }
+                if (string.IsNullOrWhiteSpace(Height.Text) == true || Height.Text.EndsWith(",") == true
+                    || !(Convert.ToDouble(Height.Text) <= 220 && Convert.ToDouble(Height.Text) >= 120))
+                {
+                    error += "-Введите корректный рост\n(120 - 220 см)\n";
+                    Height.Text = string.Empty;
+                }
+                if (string.IsNullOrWhiteSpace(error) == false)
+                {
+                    MessageBox.Show(error, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
 
 
-            if (Gender.SelectedIndex == 0)
-            {
-                result = 66 + (13.7 * Convert.ToDouble(Weigh.Text.Replace(" ", ""))) + (5 * Convert.ToDouble(Height.Text.Replace(" ", "")) - (6.8 * Convert.ToInt32(year)));
+                if (Gender.SelectedIndex == 0)
+                {
+                    result = 66 + (13.7 * Convert.ToDouble(Weigh.Text.Replace(" ", ""))) + (5 * Convert.ToDouble(Height.Text.Replace(" ", "")) - (6.8 * Convert.ToInt32(year)));
+                }
+                else
+                {
+                    result = 655 + (9.6 * Convert.ToDouble(Weigh.Text.Replace(" ", ""))) + (1.8 * Convert.ToDouble(Height.Text.Replace(" ", ""))) - (4.7 * Convert.ToInt32(year));
+                }
+                ratio = GetRatio() * result;
+                TBBMR.Text = result.ToString();
+                TBTDEE.Text = ratio.ToString();
             }
-            else
+            catch
             {
-                result = 655 + (9.6 * Convert.ToDouble(Weigh.Text.Replace(" ", ""))) + (1.8 * Convert.ToDouble(Height.Text.Replace(" ", ""))) - (4.7 * Convert.ToInt32(year));
+                MessageBox.Show("Ошибка введенных данных");
+                Clear();
             }
-            ratio = GetRatio() * result;
-            TBBMR.Text = result.ToString();
-            TBTDEE.Text = ratio.ToString();
+            
         }
 
         private double GetRatio()
