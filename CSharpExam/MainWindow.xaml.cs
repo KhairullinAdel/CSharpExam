@@ -24,6 +24,9 @@ namespace CSharpExam
         public MainWindow()
         {
             InitializeComponent();
+            Year.MaxLength = 4;
+            Weigh.MaxLength = 3;
+            Height.MaxLength = 3;
         }
         bool isMax = true;
         double year;
@@ -31,13 +34,11 @@ namespace CSharpExam
         private void BClear_Click(object sender, RoutedEventArgs e)
         {
             Year.Text = Height.Text = Weigh.Text = TBTDEE.Text = TBBMR.Text = string.Empty;
-            Weigh.MaxLength = 3;
         }
 
         private void Clear()
         {
             Year.Text = Height.Text = Weigh.Text = TBTDEE.Text = TBBMR.Text = string.Empty;
-            Weigh.MaxLength = 3;
         }
 
         private void BCalculate_Click(object sender, RoutedEventArgs e)
@@ -138,10 +139,5 @@ namespace CSharpExam
             return !_regexLet.IsMatch(text);
         }
 
-        private void PreviewTextInputYear(object sender, TextCompositionEventArgs e)
-        {
-            if (Regex.IsMatch(e.Text, @"[0-9,]") == false)
-                e.Handled = true;
-        }
     }
 }
